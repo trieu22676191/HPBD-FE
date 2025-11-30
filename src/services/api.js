@@ -1,5 +1,5 @@
-// API Base URL - Thay đổi theo địa chỉ backend của bạn
-const API_BASE_URL = 'http://localhost:8080/api'
+// API Base URL - Sử dụng biến môi trường hoặc fallback về localhost
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api'
 
 // Helper function để xử lý response
 const handleResponse = async (response) => {
