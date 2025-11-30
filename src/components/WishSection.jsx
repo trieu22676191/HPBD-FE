@@ -23,13 +23,13 @@ function WishSection() {
         </div>
 
         <div className="wish-content">
-          <h2 className="wish-header">Lời Chúc Dành Cho Bạn!</h2>
-          <div className="wish-date">29/09/2025</div>
+          <h2 className="wish-header">Con Khỉ gửi con Rùa!</h2>
+          <div className="wish-date">19/12/2025</div>
           <div className="wish-message">
             <p>
-              Chào bạn! Hôm nay là một ngày đặc biệt, không chỉ vì đây là ngày
-              sinh nhật của bạn mà còn vì đây là ngày để những người thân yêu và
-              bạn bè gửi đến bạn những lời chúc chân thành nhất.
+              Hí chào cậu! Hôm nay là một ngày đặc biệt, không chỉ vì hôm này là
+              sinh nhật của bạn mà còn ngày để những người thân yêu và bạn bè
+              gửi đến bạn những lời chúc chân thành nhất.
             </p>
             <p>
               Vào ngày sinh nhật của bạn, mình chúc bạn có một ngày thật rực rỡ,

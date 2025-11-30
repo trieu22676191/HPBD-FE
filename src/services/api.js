@@ -1,5 +1,7 @@
-// API Base URL - Sử dụng biến môi trường hoặc fallback về localhost
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api'
+// API Base URL - Sử dụng biến môi trường hoặc fallback
+// Mặc định dùng production URL từ Render (backend đã deploy)
+// Nếu muốn dùng local, set VITE_API_BASE_URL=http://localhost:8080/api
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://hpbd-be-7rmt.onrender.com/api'
 
 // Helper function để xử lý response
 const handleResponse = async (response) => {

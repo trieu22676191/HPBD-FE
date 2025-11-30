@@ -10,6 +10,26 @@ function QuotesSection() {
   const [editNickname, setEditNickname] = useState('')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [expandedWishes, setExpandedWishes] = useState(new Set())
+  
+  // Giới hạn số ký tự hiển thị ban đầu
+  const MAX_TEXT_LENGTH = 150
+  
+  const toggleExpand = (wishId) => {
+    setExpandedWishes(prev => {
+      const newSet = new Set(prev)
+      if (newSet.has(wishId)) {
+        newSet.delete(wishId)
+      } else {
+        newSet.add(wishId)
+      }
+      return newSet
+    })
+  }
+  
+  const isExpanded = (wishId) => expandedWishes.has(wishId)
+  
+  const shouldTruncate = (text) => text && text.length > MAX_TEXT_LENGTH
 
   useEffect(() => {
     // Load lời chúc từ API
@@ -17,14 +37,28 @@ function QuotesSection() {
       try {
         setLoading(true)
         const data = await getAllWishes()
-        setWishes(data || [])
+        
+        // Chỉ hiển thị lời chúc đã xem (admin đã click vào bong bóng)
+        // Sắp xếp mới nhất trước
+        const viewedWishes = (data || [])
+          .filter(wish => wish.isViewed === true)
+          .sort((a, b) => {
+            // Sắp xếp theo thời gian tạo (mới nhất trước)
+            const dateA = a.createdAt ? new Date(a.createdAt) : new Date(0)
+            const dateB = b.createdAt ? new Date(b.createdAt) : new Date(0)
+            return dateB - dateA
+          })
+        
+        setWishes(viewedWishes)
         setError(null)
       } catch (err) {
         console.error('Lỗi khi tải lời chúc:', err)
         setError('Không thể tải lời chúc. Vui lòng thử lại sau.')
         // Fallback: thử load từ localStorage nếu API lỗi
         const savedWishes = JSON.parse(localStorage.getItem('birthdayWishes') || '[]')
-        setWishes(savedWishes)
+        const viewedWishes = savedWishes
+          .filter(wish => wish.isViewed === true)
+        setWishes(viewedWishes)
       } finally {
         setLoading(false)
       }
@@ -118,7 +152,7 @@ function QuotesSection() {
           </div>
         ) : wishes.length === 0 ? (
           <div className="no-wishes-message">
-            <p>Chưa có lời chúc nào. Hãy để bạn bè gửi lời chúc cho bạn ở phần trên nhé! 💝</p>
+            <p>Chưa có lời chúc nào đã được xem. Hãy click vào các bong bóng ở phần trên để xem lời chúc nhé! 💝</p>
           </div>
         ) : (
           <div className="quotes-list">
@@ -179,7 +213,21 @@ function QuotesSection() {
                   </div>
                 ) : (
                   <>
-                    <p className="quote-text">"{wish.text}"</p>
+                    <div className="quote-text-wrapper">
+                      <p className="quote-text">
+                        "{isExpanded(wish.id) || !shouldTruncate(wish.text) 
+                          ? wish.text 
+                          : wish.text.substring(0, MAX_TEXT_LENGTH) + '...'}
+                      </p>
+                      {shouldTruncate(wish.text) && (
+                        <button 
+                          className="expand-text-btn"
+                          onClick={() => toggleExpand(wish.id)}
+                        >
+                          {isExpanded(wish.id) ? 'Thu gọn' : 'Xem thêm'}
+                        </button>
+                      )}
+                    </div>
                     <p className="quote-author">— {wish.nickname}</p>
                   </>
                 )}

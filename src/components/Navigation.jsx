@@ -1,75 +1,136 @@
-import React, { useState, useEffect } from 'react'
-import '../styles/Navigation.css'
-import PasswordModal from './PasswordModal'
+import React, { useState, useEffect } from "react";
+import "../styles/Navigation.css";
+import PasswordModal from "./PasswordModal";
 
 function Navigation() {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isAdmin, setIsAdmin] = useState(false)
-  const [showPasswordModal, setShowPasswordModal] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
-    }
-    window.addEventListener('scroll', handleScroll)
-    
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+
     // Kiểm tra trạng thái admin
     const checkAdminStatus = () => {
-      const adminStatus = localStorage.getItem('isAdmin') === 'true'
-      setIsAdmin(adminStatus)
-    }
-    
-    checkAdminStatus()
-    
+      const adminStatus = localStorage.getItem("isAdmin") === "true";
+      setIsAdmin(adminStatus);
+    };
+
+    checkAdminStatus();
+
     // Lắng nghe event khi admin status thay đổi
     const handleAdminStatusChange = () => {
-      checkAdminStatus()
-    }
-    
-    window.addEventListener('adminStatusChanged', handleAdminStatusChange)
-    
+      checkAdminStatus();
+    };
+
+    window.addEventListener("adminStatusChanged", handleAdminStatusChange);
+
     return () => {
-      window.removeEventListener('scroll', handleScroll)
-      window.removeEventListener('adminStatusChanged', handleAdminStatusChange)
-    }
-  }, [])
-  
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("adminStatusChanged", handleAdminStatusChange);
+    };
+  }, []);
+
   const handlePasswordSuccess = () => {
-    setIsAdmin(true)
-  }
+    setIsAdmin(true);
+  };
 
   const scrollToSection = (id) => {
-    const element = document.getElementById(id)
+    const element = document.getElementById(id);
     if (element) {
-      const nav = document.querySelector('.navigation')
-      const navHeight = nav ? nav.offsetHeight : 70
-      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
-      const offsetPosition = elementPosition - navHeight
-      
+      const nav = document.querySelector(".navigation");
+      const navHeight = nav ? nav.offsetHeight : 70;
+      const elementPosition =
+        element.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = elementPosition - navHeight;
+
       window.scrollTo({
         top: offsetPosition,
-        behavior: 'smooth'
-      })
+        behavior: "smooth",
+      });
     }
-  }
+  };
 
   return (
-    <nav className={`navigation ${isScrolled ? 'scrolled' : ''}`}>
+    <nav className={`navigation ${isScrolled ? "scrolled" : ""}`}>
       <div className="nav-container">
-        <div className="nav-logo" onClick={() => scrollToSection('home')}>
+        <div className="nav-logo" onClick={() => scrollToSection("home")}>
           Chúc Mừng Sinh Nhật
         </div>
         <ul className="nav-menu">
-          <li><a href="#home" onClick={(e) => { e.preventDefault(); scrollToSection('home') }}>Trang Chủ</a></li>
-          <li><a href="#wish" onClick={(e) => { e.preventDefault(); scrollToSection('wish') }}>Lời Chúc</a></li>
-          <li><a href="#photos" onClick={(e) => { e.preventDefault(); scrollToSection('photos') }}>Ảnh</a></li>
-          <li><a href="#quotes" onClick={(e) => { e.preventDefault(); scrollToSection('quotes') }}>Câu Nói</a></li>
-          <li><a href="#gallery" onClick={(e) => { e.preventDefault(); scrollToSection('gallery') }}>Thư Viện</a></li>
-          <li><a href="#memories" onClick={(e) => { e.preventDefault(); scrollToSection('memories') }}>Kỷ Niệm</a></li>
+          <li>
+            <a
+              href="#home"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection("home");
+              }}
+            >
+              Trang Chủ
+            </a>
+          </li>
+          <li>
+            <a
+              href="#wish"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection("wish");
+              }}
+            >
+              DIUHIN
+            </a>
+          </li>
+          <li>
+            <a
+              href="#photos"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection("photos");
+              }}
+            >
+              Ảnh
+            </a>
+          </li>
+          <li>
+            <a
+              href="#quotes"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection("quotes");
+              }}
+            >
+              Lời Chúc
+            </a>
+          </li>
+          <li>
+            <a
+              href="#gallery"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection("gallery");
+              }}
+            >
+              Thư Viện
+            </a>
+          </li>
+          <li>
+            <a
+              href="#memories"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection("memories");
+              }}
+            >
+              Kỷ Niệm
+            </a>
+          </li>
         </ul>
         <div className="nav-icons">
           {!isAdmin ? (
-            <button 
+            <button
               className="nav-edit-btn"
               onClick={() => setShowPasswordModal(true)}
               title="Sửa"
@@ -78,7 +139,7 @@ function Navigation() {
             </button>
           ) : (
             <div className="nav-edit-btn-wrapper">
-              <button 
+              <button
                 className="nav-edit-btn"
                 disabled
                 style={{ opacity: 0.5 }}
@@ -86,13 +147,15 @@ function Navigation() {
               >
                 ✏️
               </button>
-              <button 
+              <button
                 className="nav-exit-admin-btn"
                 onClick={() => {
-                  if (window.confirm('Bạn có chắc muốn thoát chế độ quản trị?')) {
-                    localStorage.removeItem('isAdmin')
-                    setIsAdmin(false)
-                    window.dispatchEvent(new CustomEvent('adminStatusChanged'))
+                  if (
+                    window.confirm("Bạn có chắc muốn thoát chế độ quản trị?")
+                  ) {
+                    localStorage.removeItem("isAdmin");
+                    setIsAdmin(false);
+                    window.dispatchEvent(new CustomEvent("adminStatusChanged"));
                   }
                 }}
                 title="Thoát chế độ quản trị"
@@ -103,7 +166,7 @@ function Navigation() {
           )}
           <span className="nav-icon">❤️</span>
         </div>
-        
+
         <PasswordModal
           isOpen={showPasswordModal}
           onClose={() => setShowPasswordModal(false)}
@@ -111,8 +174,7 @@ function Navigation() {
         />
       </div>
     </nav>
-  )
+  );
 }
 
-export default Navigation
-
+export default Navigation;
