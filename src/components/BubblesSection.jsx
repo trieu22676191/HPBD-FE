@@ -291,7 +291,7 @@ function BubblesSection() {
             <div className="bubbles-input-section">
               <input
                 type="text"
-                placeholder="Tên của bạn"
+                placeholder="Tên của bạn (sẽ ẩn đi)"
                 value={friendName}
                 onChange={(e) => setFriendName(e.target.value)}
                 className="bubbles-name-input"
@@ -302,7 +302,7 @@ function BubblesSection() {
             <div className="bubbles-input-section">
               <input
                 type="text"
-                placeholder="Biệt danh"
+                placeholder="Biệt danh (sẽ hiển thị ở phần lời chúc)"
                 value={nickname}
                 onChange={(e) => setNickname(e.target.value)}
                 className="bubbles-name-input"

@@ -13,10 +13,18 @@
 .memories-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 50px;
   flex-wrap: wrap;
   gap: 20px;
+}
+
+.memories-header-title-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
 }
 
 .memories-header-actions {
@@ -84,7 +92,18 @@
   color: white;
   font-weight: bold;
   text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  flex: 1;
+  width: 100%;
+}
+
+.memories-subtitle {
+  font-size: 1.2rem;
+  text-align: center;
+  margin: 10px 0 0 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 400;
+  width: 100%;
+  font-style: italic;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .add-video-btn {
@@ -434,6 +453,11 @@
   
   .memories-title {
     font-size: 2rem;
+  }
+  
+  .memories-subtitle {
+    font-size: 1rem;
+    margin: 8px 0 0 0;
   }
   
   .add-video-btn {

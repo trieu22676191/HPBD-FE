@@ -279,7 +279,10 @@ function MemoriesSection() {
     <section className="memories-section" id="memories">
       <div className="memories-container">
         <div className="memories-header">
-          <h2 className="memories-title">🎬 Kỷ Niệm</h2>
+          <div className="memories-header-title-wrapper">
+            <h2 className="memories-title">🎬 Kỷ Niệm</h2>
+            <p className="memories-subtitle">Hãy cho mọi người chiêm ngưỡng những thước phim quý giá</p>
+          </div>
           <div className="memories-header-actions">
             <button
               className="add-video-btn"

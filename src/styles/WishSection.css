@@ -122,7 +122,7 @@
 
 @media (max-width: 968px) {
   .wish-section {
-    padding: 100px 20px 50px;
+    padding: 120px 20px 50px;
   }
   
   .wish-container {
@@ -144,6 +144,24 @@
   
   .wish-image {
     max-height: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .wish-section {
+    padding: 100px 15px 40px;
+  }
+  
+  .wish-header {
+    font-size: 1.4rem;
+  }
+  
+  .wish-date {
+    font-size: 1.6rem;
+  }
+  
+  .wish-message {
+    font-size: 0.85rem;
   }
 }
 

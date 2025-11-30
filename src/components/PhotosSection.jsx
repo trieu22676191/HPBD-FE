@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "../styles/PhotosSection.css";
 import { getAllPhotos } from "../services/api";
+import ImageLightbox from "./ImageLightbox";
 
 function PhotosSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [progress, setProgress] = useState(0);
   const [photos, setPhotos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
 
   // Load ảnh từ API
   useEffect(() => {
@@ -59,14 +62,14 @@ function PhotosSection() {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % photos.length);
       setProgress(0);
-    }, 3000); // Chuyển hình mỗi 4 giây
+    }, 3000); // Chuyển hình mỗi 3 giây
 
     const progressInterval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) return 0;
-        return prev + 2; // Tăng 2% mỗi 80ms (100% trong 4 giây)
+        return prev + 1; // Tăng 1% mỗi 30ms (100% trong 3 giây)
       });
-    }, 80);
+    }, 30);
 
     return () => {
       clearInterval(interval);
@@ -77,6 +80,19 @@ function PhotosSection() {
   const handlePhotoClick = (index) => {
     setCurrentIndex(index);
     setProgress(0);
+  };
+
+  const handlePhotoView = (index) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  };
+
+  const handleLightboxNext = () => {
+    setLightboxIndex((prev) => (prev + 1) % photos.length);
+  };
+
+  const handleLightboxPrev = () => {
+    setLightboxIndex((prev) => (prev - 1 + photos.length) % photos.length);
   };
 
   return (
@@ -126,6 +142,11 @@ function PhotosSection() {
                     src={photo.url}
                     alt={photo.caption}
                     className="photo-image"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handlePhotoView(index);
+                    }}
+                    style={{ cursor: "pointer" }}
                   />
                 </div>
               );
@@ -140,6 +161,16 @@ function PhotosSection() {
           </div>
         </div>
       </div>
+
+      <ImageLightbox
+        isOpen={lightboxOpen}
+        image={photos[lightboxIndex]}
+        images={photos}
+        currentIndex={lightboxIndex}
+        onClose={() => setLightboxOpen(false)}
+        onNext={handleLightboxNext}
+        onPrev={handleLightboxPrev}
+      />
     </section>
   );
 }

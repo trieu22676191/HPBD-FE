@@ -6,6 +6,7 @@ function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,6 +52,9 @@ function Navigation() {
         top: offsetPosition,
         behavior: "smooth",
       });
+
+      // Đóng mobile menu sau khi click
+      setIsMobileMenuOpen(false);
     }
   };
 
@@ -60,7 +64,21 @@ function Navigation() {
         <div className="nav-logo" onClick={() => scrollToSection("home")}>
           Chúc Mừng Sinh Nhật
         </div>
-        <ul className="nav-menu">
+
+        {/* Hamburger Menu Button (Mobile) */}
+        <button
+          className="mobile-menu-toggle"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Toggle menu"
+        >
+          <span className={`hamburger ${isMobileMenuOpen ? "active" : ""}`}>
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </button>
+
+        <ul className={`nav-menu ${isMobileMenuOpen ? "mobile-open" : ""}`}>
           <li>
             <a
               href="#home"
@@ -128,11 +146,14 @@ function Navigation() {
             </a>
           </li>
         </ul>
-        <div className="nav-icons">
+        <div className={`nav-icons ${isMobileMenuOpen ? "mobile-open" : ""}`}>
           {!isAdmin ? (
             <button
               className="nav-edit-btn"
-              onClick={() => setShowPasswordModal(true)}
+              onClick={() => {
+                setShowPasswordModal(true);
+                setIsMobileMenuOpen(false);
+              }}
               title="Sửa"
             >
               ✏️
@@ -156,6 +177,7 @@ function Navigation() {
                     localStorage.removeItem("isAdmin");
                     setIsAdmin(false);
                     window.dispatchEvent(new CustomEvent("adminStatusChanged"));
+                    setIsMobileMenuOpen(false);
                   }
                 }}
                 title="Thoát chế độ quản trị"
