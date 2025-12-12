@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../styles/Navigation.css";
 import PasswordModal from "./PasswordModal";
 
-function Navigation() {
+function Navigation({ onHeartClick }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
@@ -186,7 +186,19 @@ function Navigation() {
               </button>
             </div>
           )}
-          <span className="nav-icon">❤️</span>
+          <span 
+            className="nav-icon heart-icon" 
+            onClick={() => {
+              if (onHeartClick) {
+                onHeartClick();
+                setIsMobileMenuOpen(false);
+              }
+            }}
+            style={{ cursor: 'pointer' }}
+            title="Heart of Stars"
+          >
+            ❤️
+          </span>
         </div>
 
         <PasswordModal
