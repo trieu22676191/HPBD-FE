@@ -1,5 +1,5 @@
-import React from 'react'
-import '../styles/HeroSection.css'
+import React from "react";
+import "../styles/HeroSection.css";
 
 function HeroSection() {
   return (
@@ -9,7 +9,7 @@ function HeroSection() {
         <div className="stars"></div>
         <div className="stars"></div>
       </div>
-      
+
       <div className="hero-content">
         <div className="hero-text-container">
           <h1 className="hero-title">
@@ -21,7 +21,7 @@ function HeroSection() {
             <p>🎉 Một ngày đặc biệt dành cho một người đặc biệt 🎂</p>
           </div>
         </div>
-        
+
         <div className="floating-elements">
           <div className="floating-heart">💖</div>
           <div className="floating-heart">💝</div>
@@ -31,7 +31,7 @@ function HeroSection() {
           <div className="floating-heart">🌟</div>
         </div>
       </div>
-      
+
       <div className="scroll-indicator">
         <div className="mouse">
           <div className="wheel"></div>
@@ -39,8 +39,7 @@ function HeroSection() {
         <p>Cuộn xuống để xem thêm</p>
       </div>
     </section>
-  )
+  );
 }
 
-export default HeroSection
-
+export default HeroSection;

@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
-import '../styles/HeartStar.css';
-import bgMusic from '../audio/Beneath the Rain.mp3';
+import React, { useEffect, useRef, useState } from "react";
+import "../styles/HeartStar.css";
+import bgMusic from "../audio/Beneath the Rain.mp3";
 
 function HeartStar({ onClose }) {
   const canvasRef = useRef(null);
@@ -8,30 +8,42 @@ function HeartStar({ onClose }) {
   const animationFrameRef = useRef(null);
   const intervalRef = useRef(null);
   const meteorIntervalRef = useRef(null);
-  
+
   const [width, setWidth] = useState(window.innerWidth);
   const [height, setHeight] = useState(window.innerHeight);
   const [mouseX, setMouseX] = useState(width / 2);
   const [mouseY, setMouseY] = useState(height / 2);
   const heartBeatRef = useRef(1);
-  const [heartScale, setHeartScale] = useState(Math.min(window.innerWidth, window.innerHeight) * 0.015);
-  
+  const [heartScale, setHeartScale] = useState(
+    Math.min(window.innerWidth, window.innerHeight) * 0.015
+  );
+
   const starsRef = useRef([]);
   const heartStarsRef = useRef([]);
   const meteorsRef = useRef([]);
   const fallingTextsRef = useRef([]);
 
   const messages = [
-    "Em là vũ trụ của anh",
-    "Tình yêu bất tận giữa các vì sao",
-    "Em là ngôi sao sáng nhất",
-    "Anh tỏa sáng là vì em",
-    "Em thật tỏa sáng trên bầu trời của anh"
+    "I love you",
+    "Je t’aime",
+    "사랑해",
+    "愛してる",
+    "我爱你",
+    "Te amo",
+    "Ich liebe dich",
+    "Ti amo",
+    "ผมรักคุณ",
+    "Я тебя люблю",
   ];
 
   function heartShape(t, scale = 1) {
     const x = 16 * Math.pow(Math.sin(t), 3);
-    const y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+    const y = -(
+      13 * Math.cos(t) -
+      5 * Math.cos(2 * t) -
+      2 * Math.cos(3 * t) -
+      Math.cos(4 * t)
+    );
     return { x: x * scale, y: y * scale };
   }
 
@@ -39,7 +51,7 @@ function HeartStar({ onClose }) {
     const centerX = width / 2;
     const centerY = height / 2 + 20;
     heartStarsRef.current = [];
-    
+
     for (let i = 0; i < count; i++) {
       const t = (i / count) * Math.PI * 2;
       const heart = heartShape(t, heartScale);
@@ -61,7 +73,7 @@ function HeartStar({ onClose }) {
         twinkleSpeed: Math.random() * 0.02 + 0.01,
         brightness: Math.random() * 0.5 + 0.5,
         hue: Math.random() * 60 + 300,
-        mode: 'flying'
+        mode: "flying",
       });
     }
   }
@@ -75,7 +87,7 @@ function HeartStar({ onClose }) {
         size: Math.random() * 2 + 0.5,
         twinkle: Math.random() * Math.PI * 2,
         twinkleSpeed: Math.random() * 0.01 + 0.005,
-        brightness: Math.random() * 0.3 + 0.2
+        brightness: Math.random() * 0.3 + 0.2,
       });
     }
   }
@@ -87,7 +99,7 @@ function HeartStar({ onClose }) {
       length: Math.random() * 80 + 50,
       speed: Math.random() * 6 + 6,
       angle: Math.PI / 4 + (Math.random() - 0.5) * 0.2,
-      alpha: 1
+      alpha: 1,
     });
   }
 
@@ -107,32 +119,33 @@ function HeartStar({ onClose }) {
       speed: Math.random() * 2 + 2,
       alpha: 1,
       fontSize,
-      hue: Math.random() * 360
+      hue: Math.random() * 360,
     });
   }
 
   function animate() {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    
-    const ctx = canvas.getContext('2d');
+
+    const ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, width, height);
-    
+
     heartBeatRef.current += 0.1;
     const currentHeartBeat = heartBeatRef.current;
 
     // Draw background stars
-    starsRef.current.forEach(star => {
+    starsRef.current.forEach((star) => {
       star.twinkle += star.twinkleSpeed;
       const flicker = Math.random() < 0.005 ? 1 : 0;
-      const baseOpacity = star.brightness * (0.4 + 0.6 * Math.sin(star.twinkle));
+      const baseOpacity =
+        star.brightness * (0.4 + 0.6 * Math.sin(star.twinkle));
       const opacity = Math.min(1, baseOpacity + flicker);
 
       ctx.save();
       ctx.globalAlpha = opacity;
-      ctx.fillStyle = '#ffffff';
+      ctx.fillStyle = "#ffffff";
       ctx.shadowBlur = flicker ? 20 : 0;
-      ctx.shadowColor = flicker ? '#fff' : 'transparent';
+      ctx.shadowColor = flicker ? "#fff" : "transparent";
       ctx.beginPath();
       ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
       ctx.fill();
@@ -145,7 +158,7 @@ function HeartStar({ onClose }) {
       const dy = Math.sin(m.angle) * m.length;
       ctx.save();
       ctx.globalAlpha = m.alpha;
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.8)";
       ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.moveTo(m.x, m.y);
@@ -179,11 +192,11 @@ function HeartStar({ onClose }) {
     // Draw heart stars
     const centerX = width / 2;
     const centerY = height / 2 + 20;
-    
+
     heartStarsRef.current.forEach((star, i) => {
       star.twinkle += star.twinkleSpeed;
 
-      if (star.mode === 'flying') {
+      if (star.mode === "flying") {
         const dx = star.targetX - star.x;
         const dy = star.targetY - star.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
@@ -192,7 +205,7 @@ function HeartStar({ onClose }) {
           star.x += dx * speed;
           star.y += dy * speed;
         } else {
-          star.mode = 'heart';
+          star.mode = "heart";
         }
       } else {
         const deltaX = star.originalX - centerX;
@@ -211,7 +224,8 @@ function HeartStar({ onClose }) {
         }
       }
 
-      const twinkleOpacity = star.brightness * (0.3 + 0.7 * Math.sin(star.twinkle));
+      const twinkleOpacity =
+        star.brightness * (0.3 + 0.7 * Math.sin(star.twinkle));
       ctx.save();
       ctx.globalAlpha = twinkleOpacity;
       ctx.fillStyle = `hsl(${star.hue}, 70%, 80%)`;
@@ -230,14 +244,14 @@ function HeartStar({ onClose }) {
     const rect = canvasRef.current.getBoundingClientRect();
     const clickX = e.clientX - rect.left;
     const clickY = e.clientY - rect.top;
-    
+
     const centerX = width / 2;
     const centerY = height / 2 + 20;
     const newScale = heartScale * 1.015;
     setHeartScale(newScale);
-    
+
     heartStarsRef.current.forEach((star, i) => {
-      if (star.mode === 'heart') {
+      if (star.mode === "heart") {
         const t = (i / heartStarsRef.current.length) * Math.PI * 2;
         const heart = heartShape(t, newScale);
         const offsetX = (Math.random() - 0.5) * 15;
@@ -265,7 +279,7 @@ function HeartStar({ onClose }) {
         twinkleSpeed: Math.random() * 0.03 + 0.02,
         brightness: Math.random() * 0.8 + 0.6,
         hue: Math.random() * 60 + 300,
-        mode: 'flying'
+        mode: "flying",
       });
     }
   };
@@ -282,12 +296,12 @@ function HeartStar({ onClose }) {
     setWidth(newWidth);
     setHeight(newHeight);
     setHeartScale(Math.min(newWidth, newHeight) * 0.015);
-    
+
     if (canvasRef.current) {
       canvasRef.current.width = newWidth;
       canvasRef.current.height = newHeight;
     }
-    
+
     heartStarsRef.current = [];
     starsRef.current = [];
     createHeartStars();
@@ -296,7 +310,9 @@ function HeartStar({ onClose }) {
 
   const playMusicOnce = () => {
     if (audioRef.current) {
-      audioRef.current.play().catch(e => console.log("Music play blocked:", e));
+      audioRef.current
+        .play()
+        .catch((e) => console.log("Music play blocked:", e));
       window.removeEventListener("click", playMusicOnce);
     }
   };
@@ -315,7 +331,7 @@ function HeartStar({ onClose }) {
     // Create falling texts interval
     intervalRef.current = setInterval(() => {
       if (Math.random() < 0.8 && canvasRef.current) {
-        const ctx = canvasRef.current.getContext('2d');
+        const ctx = canvasRef.current.getContext("2d");
         createFallingText(ctx);
       }
     }, 2000);
@@ -329,7 +345,7 @@ function HeartStar({ onClose }) {
     window.addEventListener("click", playMusicOnce);
 
     // Handle resize
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     return () => {
       if (animationFrameRef.current) {
@@ -342,14 +358,14 @@ function HeartStar({ onClose }) {
         clearInterval(meteorIntervalRef.current);
       }
       window.removeEventListener("click", playMusicOnce);
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    
+
     canvas.width = width;
     canvas.height = height;
     createHeartStars();
@@ -367,7 +383,9 @@ function HeartStar({ onClose }) {
       />
       <div className="message">
         <div>I love you in every universe</div>
-        <div className="subtitle">Anh yêu em...Cho dù ở vũ trụ nào anh vẫn yêu em</div>
+        <div className="subtitle">
+          Thế giới của anh gói gọn trong đôi mắt ấy !
+        </div>
       </div>
       <button className="heartstar-close-btn" onClick={onClose}>
         ✕
@@ -380,4 +398,3 @@ function HeartStar({ onClose }) {
 }
 
 export default HeartStar;
-
