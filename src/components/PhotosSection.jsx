@@ -102,6 +102,32 @@ function PhotosSection() {
 
         <div className="photos-carousel">
           <div className="photos-carousel-wrapper">
+            {photos.length > 1 && (
+              <>
+                <button
+                  className="carousel-nav-btn carousel-prev"
+                  onClick={() => {
+                    setCurrentIndex(
+                      (prev) => (prev - 1 + photos.length) % photos.length
+                    );
+                    setProgress(0);
+                  }}
+                  aria-label="Ảnh trước"
+                >
+                  ‹
+                </button>
+                <button
+                  className="carousel-nav-btn carousel-next"
+                  onClick={() => {
+                    setCurrentIndex((prev) => (prev + 1) % photos.length);
+                    setProgress(0);
+                  }}
+                  aria-label="Ảnh tiếp theo"
+                >
+                  ›
+                </button>
+              </>
+            )}
             {photos.map((photo, index) => {
               const isActive = index === currentIndex;
               const offset = index - currentIndex;
