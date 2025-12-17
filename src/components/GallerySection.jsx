@@ -273,7 +273,7 @@ function GallerySection() {
             {uploading && (
               <div className="upload-progress">
                 <div className="spinner"></div>
-                <p>Đang upload ảnh lên Cloudinary...</p>
+                <p>Đang upload ảnh, chờ xíu</p>
               </div>
             )}
             <div className="form-actions">

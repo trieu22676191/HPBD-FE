@@ -4,7 +4,7 @@ import "../styles/PasswordModal.css";
 function PasswordModal({ isOpen, onClose, onSuccess }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const PASSWORD = "0812200422676191";
+  const PASSWORD = "1912200708122004";
 
   const handleSubmit = (e) => {
     e.preventDefault();

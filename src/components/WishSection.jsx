@@ -27,17 +27,19 @@ function WishSection() {
           <div className="wish-date">19/12/2025</div>
           <div className="wish-message">
             <p>
-              Hí chào cậu! Hôm nay là một ngày đặc biệt, không chỉ vì hôm này là
-              sinh nhật của bạn mà còn ngày để những người thân yêu và bạn bè
-              gửi đến bạn những lời chúc chân thành nhất.
+              Chào cô bé! Hôm nay là một ngày rất đặc biệt — không chỉ vì hôm
+              nay là sinh nhật em, mà còn là dịp để anh và những người yêu
+              thương em gửi đến em những lời chúc chân thành nhất.
             </p>
             <p>
-              Vào ngày sinh nhật của bạn, mình chúc bạn có một ngày thật rực rỡ,
-              đầy ắp tiếng cười, niềm vui và những bất ngờ đáng yêu. Mong rằng
-              tuổi mới sẽ mang đến cho bạn thật nhiều thành công, nhiều trải
-              nghiệm thú vị và những người luôn yêu thương, trân trọng bạn.
+              Nhân ngày sinh nhật, anh chúc em có một ngày thật rực rỡ, nhiều
+              tiếng cười, nhiều niềm vui và những bất ngờ nho nhỏ nhưng đủ làm
+              em mỉm cười. Mong rằng tuổi mới sẽ mang đến cho em thêm nhiều trải
+              nghiệm hay ho, những điều tốt đẹp, và luôn có những người thân yêu
+              ở bên cạnh, trân trọng và yêu thương em đúng như cách em xứng
+              đáng.
             </p>
-            <p>Chúc mừng sinh nhật bạn! 🎉🎂</p>
+            <p>Happy Birthday to you! 🎉🎂</p>
           </div>
           <button className="wish-button" onClick={handleButtonClick}>
             Rảnh tay thì bấm vào đây
